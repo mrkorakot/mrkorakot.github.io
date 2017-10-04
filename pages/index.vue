@@ -15,7 +15,7 @@
 
 <script>
 import character from '~/components/character.vue'
-import {TimelineLite, TweenLite, Elastic, Power4} from 'gsap'
+import {TimelineLite, Elastic, Power4} from 'gsap'
 export default {
   name: 'Home',
   data () {
@@ -25,7 +25,7 @@ export default {
     }
   },
   head: {
-    title: 'Mr.Korakot Suppol'
+    title: 'TEST'
   },
   components: {
     character
@@ -43,14 +43,13 @@ export default {
         thisComp.introAnimated()
       }
     })
-    tl.add(TweenLite.from($intro, 1, {
+    tl.from($intro, 1, {
       width: 100,
       ease: Power4.easeIn
-    }))
-    tl.add(TweenLite.from($intro, 2, {
+    }).from($intro, 2, {
       rotation: 45,
       ease: Elastic.easeOut
-    }))
+    })
   }
 }
 </script>

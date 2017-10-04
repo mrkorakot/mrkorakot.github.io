@@ -11,7 +11,7 @@
     name: 'character',
     data () {
       return {
-        title: 'character'
+        title: 'TEST'
       }
     },
     props: [
