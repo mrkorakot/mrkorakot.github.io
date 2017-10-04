@@ -7,7 +7,7 @@
     <h2 class="info">
       {{ user.name }}
     </h2>
-    <nuxt-link class="button" to="/">
+    <nuxt-link class="button" to="/users">
       Users
     </nuxt-link>
   </section>

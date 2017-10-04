@@ -1,0 +1,11 @@
+.character {
+  width: 200px;
+  height: 200px;
+  background-color: #fff;
+  transition: all 0.3s;
+  &.active {
+    width: 230px;
+    height: 230px;
+    background-color: #000;
+  }
+}

@@ -1,48 +1,60 @@
-<template>
-  <section class="container">
-    <img src="~assets/img/logo.png" alt="Nuxt.js Logo" class="logo" />
-    <h1 class="title">
-      USERS
-    </h1>
-    <ul class="users">
-      <li v-for="(user, index) in users" :key="index" class="user">
-        <nuxt-link :to="{ name: 'id', params: { id: index }}">
-          {{ user.name }}
-        </nuxt-link>
-      </li>
-    </ul>
-  </section>
+<template lang="pug">
+  .mainContent(
+    :id="page"
+  )
+    .intro(
+      ref="intro"
+    )
+      .items
+        .item
+        .item
+    character(
+      :active="characterActive"
+    )
 </template>
 
 <script>
-import axios from '~/plugins/axios'
-
+import character from '~/components/character.vue'
+import {TimelineLite, TweenLite, Elastic, Power4} from 'gsap'
 export default {
-  async asyncData () {
-    let { data } = await axios.get('/api/users')
-    return { users: data }
-  },
-  head () {
+  name: 'Home',
+  data () {
     return {
-      title: 'Users'
+      page: 'home',
+      characterActive: false
     }
+  },
+  head: {
+    title: 'Mr.Korakot Suppol'
+  },
+  components: {
+    character
+  },
+  methods: {
+    introAnimated () {
+      this.characterActive = true
+    }
+  },
+  mounted () {
+    const thisComp = this
+    const $intro = this.$refs.intro
+    const tl = new TimelineLite({
+      onComplete () {
+        thisComp.introAnimated()
+      }
+    })
+    tl.add(TweenLite.from($intro, 1, {
+      width: 100,
+      ease: Power4.easeIn
+    }))
+    tl.add(TweenLite.from($intro, 2, {
+      rotation: 45,
+      ease: Elastic.easeOut
+    }))
   }
 }
 </script>
 
-<style scoped>
-.title
-{
-  margin: 30px 0;
-}
-.users
-{
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.user
-{
-  margin: 10px 0;
-}
+<style lang="scss">
+  @import "~assets/styles/intro.scss";
 </style>

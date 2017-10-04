@@ -1,0 +1,42 @@
+html {
+  background-color: #fff;
+  color: #000;
+  letter-spacing: 0.5px;
+  font-family: "Source Sans Pro", Arial, sans-serif;
+  margin: 0;
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+}
+*, ::after, ::before {
+  box-sizing: inherit;  
+}
+footer {
+  padding: 20px;
+  text-align: center;
+  border-top: 1px solid #ddd;
+}
+
+a, a:hover, a:focus, a:visited {
+  color: #000;
+}
+
+.logo {
+  width: 100%;
+  height: auto;
+  max-width: 400px;
+  max-height: 289px;
+}
+
+.page-enter-active, .page-leave-active {
+  transition: opacity .5s;
+}
+.page-enter, .page-leave-to {
+  opacity: 0;
+}
+.container {
+  width: 800px;
+  padding-left: 30px;
+  padding-right: 30px;
+}
