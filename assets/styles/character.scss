@@ -7,8 +7,6 @@
   &.active {
     width: 230px;
     height: 230px;
-    background-color: #000;
-    color: #fff;
-    font-size: 40px;
+    box-shadow: 0 0 20px 5px rgba(#000,.5);
   }
 }

@@ -5,6 +5,14 @@
     .characterInner {{ title }}
       .image
         img
+      .caption
+        .captionInner
+          .titleText
+            div Lorem ipsum dolor sit amet,
+            div consectetur adipisicing elit.
+          .desc
+            div Nesciunt ipsam delectus,
+            div natus reiciendis itaque quos unde ducimus.
 </template>
 <script>
   export default {
@@ -19,7 +27,7 @@
     ],
     watch: {
       active (val) {
-        console.log(val)
+        console.log('charcter active! = ', val)
       }
     },
     methods: {
