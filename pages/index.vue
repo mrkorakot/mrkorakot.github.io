@@ -2,7 +2,15 @@
   .mainContent(
     :id="page"
   )
+    .loadingIndicator(
+      v-if="loadingIndicatorShow"
+      ref="loadingIndicator"
+      :class="{active:loadingIndicatorActive}"
+    )
+      .items
+        .item(v-for="index in 2")
     .intro(
+      v-if="introShow"
       ref="intro"
     )
       .introEffect(
@@ -16,7 +24,7 @@
             ref="effectItem"
           )
     character(
-      :active="characterActive"
+      :characterShow="characterShow"
     )
 </template>
 
@@ -28,8 +36,11 @@ export default {
   data () {
     return {
       page: 'home',
-      characterActive: false,
-      effectShow: false
+      effectShow: false,
+      introShow: false,
+      characterShow: false,
+      loadingIndicatorShow: true,
+      loadingIndicatorActive: false
     }
   },
   head: {
@@ -37,6 +48,15 @@ export default {
   },
   components: {
     character
+  },
+  watch: {
+    introShow (val) {
+      if (val) {
+        this.$nextTick(function () {
+          this.introAnimate()
+        })
+      }
+    }
   },
   methods: {
     introAnimate () {
@@ -48,20 +68,19 @@ export default {
         }
       })
       tl.from($intro, 1, {
-        width: 100,
+        width: 80,
         ease: Power4.easeIn
       }).from($intro, 2, {
-        rotation: 45,
+        rotation: 0,
         ease: Elastic.easeOut
       })
     },
     introAnimated ($intro) {
       $intro.classList.add('done')
-      this.characterActive = true
+      this.characterShow = true
       this.effectShow = true
       this.$nextTick(function () {
         this.introEffectAnimate()
-        setInterval(() => this.introEffectAnimate(), 10000)
       })
     },
     introEffectAnimate () {
@@ -81,25 +100,46 @@ export default {
         overlap = Math.random()
         duration = Math.floor((Math.random() * 2) + 1)
         height = Math.floor(Math.random() * (15 - 5 + 1)) + 5
-        tl.from($effect, duration, {
-          'margin-top': -top,
-          left: -200,
-          width: 200,
+        tl.to($effect, 0, {
+          'margin-top': -top
+        }).from($effect, duration, {
+          left: 0,
           height: height,
           ease: Power4.easeIn
         }, '-=' + overlap)
       }
     },
     introEffectAnimated () {
-
+      this.introEffectAnimate()
+    },
+    loadingIndicatorAnimateOut () {
+      var thisComp = this
+      var $block = thisComp.$refs.loadingIndicator
+      var tl = new TimelineLite({
+        onComplete () {
+          thisComp.introShow = true
+        }
+      })
+      tl.to($block, 1, {
+        rotation: 90,
+        ease: Power4.easeIn
+      }).to($block, 1, {
+        width: '100%'
+      })
     }
   },
   mounted () {
-    this.introAnimate()
+    setTimeout(() => {
+      this.loadingIndicatorActive = true
+      this.$nextTick(function () {
+        this.loadingIndicatorAnimateOut()
+      })
+    }, 5000)
   }
 }
 </script>
 
 <style lang="scss">
   @import "~assets/styles/intro.scss";
+  @import "~assets/styles/loadingIndicator.scss";
 </style>

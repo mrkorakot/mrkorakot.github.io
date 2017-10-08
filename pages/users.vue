@@ -26,6 +26,9 @@ export default {
     return {
       title: 'Users'
     }
+  },
+  mounted () {
+    console.log(this.users)
   }
 }
 </script>
