@@ -5,7 +5,7 @@
     .loadingIndicator(
       v-if="loadingIndicatorShow"
       ref="loadingIndicator"
-      :class="{active:loadingIndicatorActive}"
+      :class="{'done':loadingIndicatorDone}"
     )
       .items
         .item(v-for="index in 2")
@@ -23,8 +23,10 @@
             v-for="index in 5"
             ref="effectItem"
           )
+            img(src="~static/img/bike-view-top.svg" width="307" height="438")
     character(
       :characterShow="characterShow"
+      @actived="charcterActived"
     )
 </template>
 
@@ -40,7 +42,7 @@ export default {
       introShow: false,
       characterShow: false,
       loadingIndicatorShow: true,
-      loadingIndicatorActive: false
+      loadingIndicatorDone: false
     }
   },
   head: {
@@ -79,9 +81,6 @@ export default {
       $intro.classList.add('done')
       this.characterShow = true
       this.effectShow = true
-      this.$nextTick(function () {
-        this.introEffectAnimate()
-      })
     },
     introEffectAnimate () {
       var thisComp = this
@@ -94,17 +93,19 @@ export default {
       var top = 0
       var overlap = 0
       var duration = 1
-      var height = 10
+      var width = 100
+      var random = 0
       for (let $effect of $effects) {
-        top = Math.floor((Math.random() * 200) + 1)
-        overlap = Math.random()
-        duration = Math.floor((Math.random() * 2) + 1)
-        height = Math.floor(Math.random() * (15 - 5 + 1)) + 5
+        random = Math.random()
+        top = Math.floor((random * 200) + 1)
+        overlap = Math.floor(random * (2 - 1 + 1)) + 1
+        duration = Math.floor(random * (5 - 1 + 1)) + 1
+        width = Math.floor(random * (width - 40 + 1)) + 40
         tl.to($effect, 0, {
-          'margin-top': -top
+          'margin-top': -top,
+          'width': width
         }).from($effect, duration, {
-          left: 0,
-          height: height,
+          'left': 0,
           ease: Power4.easeIn
         }, '-=' + overlap)
       }
@@ -126,15 +127,20 @@ export default {
       }).to($block, 1, {
         width: '100%'
       })
+    },
+    charcterActived (e) {
+      this.$nextTick(function () {
+        this.introEffectAnimate()
+      })
     }
   },
   mounted () {
-    setTimeout(() => {
-      this.loadingIndicatorActive = true
-      this.$nextTick(function () {
-        this.loadingIndicatorAnimateOut()
-      })
-    }, 5000)
+    // setTimeout(() => {
+    //   this.loadingIndicatorDone = true
+    //   this.$nextTick(function () {
+    //     this.loadingIndicatorAnimateOut()
+    //   })
+    // }, 5000)
   }
 }
 </script>

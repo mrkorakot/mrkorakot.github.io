@@ -37,6 +37,7 @@
     methods: {
       afterEnter () {
         this.active = true
+        this.$emit('actived')
       }
     }
   }
