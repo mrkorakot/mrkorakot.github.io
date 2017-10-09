@@ -54,7 +54,7 @@ export default {
   watch: {
     introShow (val) {
       if (val) {
-        this.$nextTick(function () {
+        this.$nextTick(() => {
           this.introAnimate()
         })
       }
@@ -135,12 +135,12 @@ export default {
     }
   },
   mounted () {
-    // setTimeout(() => {
-    //   this.loadingIndicatorDone = true
-    //   this.$nextTick(function () {
-    //     this.loadingIndicatorAnimateOut()
-    //   })
-    // }, 5000)
+    setTimeout(() => {
+      this.loadingIndicatorDone = true
+      this.$nextTick(function () {
+        this.loadingIndicatorAnimateOut()
+      })
+    }, 3000)
   }
 }
 </script>

@@ -15,6 +15,9 @@
   background-color: #fff;
   @include transitionEaseOutExpo(.6s);
   text-align: center;
+  transform-origin: 50% 50%;
+  transform-style: preserve-3d;
+  transform: translateZ(100px) rotateY(calc(var(--x) * 20deg)) rotateX(calc(var(--y) * -20deg));  
   .image {
     position: relative;
     height: 100%;
@@ -52,7 +55,7 @@
   &.active {
     width: 230px;
     height: 230px;
-    box-shadow: 0 15px 20px rgba(#000,.5);
+    box-shadow: 0 5px 20px rgba(#000,.5);
     .captionInner {
       .titleText,
       .desc {
